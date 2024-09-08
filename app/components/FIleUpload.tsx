@@ -42,21 +42,21 @@ export default function FileUpload() {
   }
 
   return (
-    <div className="mt-8">
-      <h2 className="text-xl font-semibold mb-4">Upload Text File</h2>
+    <div className="mt-0">
+        <button
+        onClick={handleUpload}
+        disabled={!file || uploading}
+        className="px-4 py-2 mr-2 bg-green-500 text-white rounded-full hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2 disabled:opacity-50"
+      >
+        {uploading ? 'Uploading...' : 'Upload'}
+      </button>
       <input
         type="file"
         accept=".txt"
         onChange={handleFileChange}
         className="mb-4"
       />
-      <button
-        onClick={handleUpload}
-        disabled={!file || uploading}
-        className="px-4 py-2 bg-green-500 text-white rounded-full hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2 disabled:opacity-50"
-      >
-        {uploading ? 'Uploading...' : 'Upload'}
-      </button>
+    
       {uploadStatus && (
         <p className={`mt-2 ${uploadStatus.includes('success') ? 'text-green-600' : 'text-red-600'}`}>
           {uploadStatus}

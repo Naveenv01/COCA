@@ -22,25 +22,20 @@ export default function Home() {
     <div className="min-h-screen flex flex-col">
       <header className="p-4">
         <div className="max-w-3xl mx-auto">
-          {hasSearched ? (
-            <div className="flex items-center">
-              <h1 className="text-2xl font-bold text-blue-500 mr-8">COCA-like Search</h1>
-              <SearchForm onSearch={handleSearch} />
-            </div>
-          ) : (
-            <h1 className="text-5xl font-bold text-center text-blue-500 mb-8">COCA-like Search</h1>
-          )}
+          <h1 className="text-5xl font-bold text-center text-blue-500 mb-2">Search</h1>
         </div>
       </header>
       <main className="flex-grow">
         <div className="max-w-3xl mx-auto px-4">
-          {!hasSearched && <SearchForm onSearch={handleSearch} />}
+          <div className="sticky top-0 bg-white z-10 py-2"> {/* Make this container sticky */}
+            <SearchForm onSearch={handleSearch} />
+            <FileUpload />
+          </div>
           <SearchResults results={results} />
-          <FileUpload />
         </div>
       </main>
       <footer className="p-4 text-center text-sm text-gray-500">
-        © 2023 COCA-like Search. All rights reserved.
+        © 2024 falconnave. All rights reserved.
       </footer>
     </div>
   )

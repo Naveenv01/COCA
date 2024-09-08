@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, FormEvent } from 'react'
+import FileUpload from './FIleUpload'
 
 interface SearchFormProps {
   onSearch: (query: string) => void

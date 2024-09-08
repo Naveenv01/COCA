@@ -1,9 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { MongoClient } from 'mongodb'
 import { SearchResult } from '@/types'
+import clientPromise from '@/lib/mongodb'
 
-const uri = process.env.MONGODB_URI as string
-const client = new MongoClient(uri)
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url)
@@ -14,7 +13,7 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    await client.connect()
+    const client=await clientPromise;
     const database = client.db('coca_like_db')
     const collection = database.collection('corpus')
 
