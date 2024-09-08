@@ -51,8 +51,9 @@ export default function FileUpload() {
         {uploading ? 'Uploading...' : 'Upload'}
       </button>
       <input
+        id='file_input'
         type="file"
-        accept=".txt"
+        accept=".txt,.pdf"
         onChange={handleFileChange}
         className="mb-4"
       />

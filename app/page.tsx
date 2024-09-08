@@ -1,14 +1,12 @@
 'use client'
-
 import { useState } from 'react'
 import SearchForm from './components/SearchForm'
 import SearchResults from './components/SearchResults'
-
-import { SearchResult } from '../types'
+import { AggregatedSearchResults } from '../types'
 import FileUpload from './components/FIleUpload'
 
 export default function Home() {
-  const [results, setResults] = useState<SearchResult[]>([])
+  const [results, setResults] = useState<AggregatedSearchResults>([])
   const [hasSearched, setHasSearched] = useState(false)
 
   const handleSearch = async (query: string) => {
@@ -27,7 +25,7 @@ export default function Home() {
       </header>
       <main className="flex-grow">
         <div className="max-w-3xl mx-auto px-4">
-          <div className="sticky top-0 bg-white z-10 py-2"> {/* Make this container sticky */}
+          <div className="sticky top-0 bg-white z-10 py-2">
             <SearchForm onSearch={handleSearch} />
             <FileUpload />
           </div>
