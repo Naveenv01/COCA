@@ -14,7 +14,6 @@ export async function POST(request: NextRequest) {
 
   const fileContent = await file.text()
   const sentences = fileContent.split(/[.!?]+/).filter(sentence => sentence.trim().length > 0)
-  console.log(sentences)
 
   try {
     const client=await clientPromise;
@@ -33,8 +32,3 @@ export async function POST(request: NextRequest) {
   }
 }
 
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-}
