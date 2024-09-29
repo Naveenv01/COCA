@@ -9,6 +9,7 @@ export interface SearchResult {
 export interface AggregatedSearchResult {
   fileName: string;
   count: number;
+  totalFrequency: number;
   results: SearchResult[];
 }
 
