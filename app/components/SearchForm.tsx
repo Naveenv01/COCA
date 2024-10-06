@@ -1,19 +1,22 @@
-'use client'
+"use client";
 
-import { useState, FormEvent } from 'react'
-import FileUpload from './FIleUpload'
+import { useState, FormEvent } from "react";
+import FileUpload from "./FIleUpload";
 
 interface SearchFormProps {
-  onSearch: (query: string) => void
+  onSearch: (query: string) => void;
 }
 
 export default function SearchForm({ onSearch }: SearchFormProps) {
-  const [query, setQuery] = useState('')
+  const [query, setQuery] = useState("");
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    onSearch(query)
-  }
+    e.preventDefault();
+    if (query.trim() === "") {
+      return;
+    }
+    onSearch(query);
+  };
 
   return (
     <form onSubmit={handleSubmit} className="mb-8">
@@ -25,13 +28,13 @@ export default function SearchForm({ onSearch }: SearchFormProps) {
           placeholder="Enter search query"
           className="flex-grow px-4 py-2 rounded-lg border-2 border-indigo-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition duration-200"
         />
-        <button 
-          type="submit" 
+        <button
+          type="submit"
           className="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition duration-200"
         >
           Search
         </button>
       </div>
     </form>
-  )
+  );
 }

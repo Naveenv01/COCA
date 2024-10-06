@@ -4,6 +4,7 @@ export interface SearchResult {
   fileName: string;
   score: number;
   highlightedText: string;
+  wordFrequency?: number;
 }
 
 export interface AggregatedSearchResult {

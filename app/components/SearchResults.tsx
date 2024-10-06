@@ -14,8 +14,8 @@ export default function SearchResults({ results }: SearchResultsProps) {
       setActiveTab(results[0].fileName);
     }
   }, [results, activeTab]);
-
-  if (!results || results.length === 0) {
+  if (!results || results.length == 0) {
+    console.log("called");
     return (
       <div className="text-gray-700 text-lg">
         No results found. Please try another search term.
@@ -24,6 +24,7 @@ export default function SearchResults({ results }: SearchResultsProps) {
   }
 
   // Calculate total frequency across all documents
+  //
   const totalFrequency = results.reduce(
     (acc, group) => acc + group.totalFrequency,
     0,

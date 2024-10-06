@@ -21,7 +21,7 @@ export async function GET(request: NextRequest) {
     // Create a regex for exact word match
     const exactWordRegex = new RegExp(`\\b${q}\\b`, "i");
 
-    const results = await collection
+    const res = await collection
       .aggregate([
         {
           $match: {
@@ -56,25 +56,23 @@ export async function GET(request: NextRequest) {
       ])
       .toArray();
 
-    if (results.length === 0) {
-      return NextResponse.json({ error: "No results found" }, { status: 404 });
+    if (res.length === 0) {
+      return NextResponse.json([]);
     }
-    const aggregatedResults: AggregatedSearchResults = results.map(
-      (group: any) => ({
-        fileName: group._id,
-        count: group.count, // Number of documents where the word appears
-        totalFrequency: group.totalFrequency, // Total frequency of the word in all documents
-        results: group.results.map((result: any) => ({
-          id: result._id.toString(),
-          text: result.text,
-          fileName: result.fileName,
-          highlightedText: highlightText(result.text, q),
-          wordFrequency: result.wordFrequency, // Frequency in this particular document
-        })),
-      }),
-    );
+    const results: AggregatedSearchResults = res.map((group: any) => ({
+      fileName: group._id,
+      count: group.count, // Number of documents where the word appears
+      totalFrequency: group.totalFrequency, // Total frequency of the word in all documents
+      results: group.results.map((result: any) => ({
+        id: result._id.toString(),
+        text: result.text,
+        fileName: result.fileName,
+        highlightedText: highlightText(result.text, q),
+        wordFrequency: result.wordFrequency, // Frequency in this particular document
+      })),
+    }));
 
-    return NextResponse.json(aggregatedResults);
+    return NextResponse.json(results);
   } catch (error) {
     console.error("Search error:", error);
     return NextResponse.json(
