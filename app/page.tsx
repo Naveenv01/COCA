@@ -3,17 +3,27 @@ import { useState } from "react";
 import SearchForm from "./components/SearchForm";
 import SearchResults from "./components/SearchResults";
 import { AggregatedSearchResults } from "../types";
-import FileUpload from "./components/FIleUpload";
+// import FileUpload from "./components/FileUpload";
 
 export default function Home() {
   const [results, setResults] = useState<AggregatedSearchResults>([]);
   const [hasSearched, setHasSearched] = useState(false);
+  const [loading, setLoading] = useState(false); // Added loading state
 
   const handleSearch = async (query: string) => {
-    const response = await fetch(`/api/search?q=${encodeURIComponent(query)}`);
-    const data = await response.json();
-    setResults(data);
-    setHasSearched(true);
+    setLoading(true); // Set loading to true when search starts
+    try {
+      const response = await fetch(
+        `/api/search?q=${encodeURIComponent(query)}`,
+      );
+      const data = await response.json();
+      setResults(data);
+    } catch (error) {
+      console.error("Error fetching search results:", error);
+    } finally {
+      setLoading(false); // Set loading to false when search ends
+      setHasSearched(true);
+    }
   };
 
   return (
@@ -31,7 +41,14 @@ export default function Home() {
             <SearchForm onSearch={handleSearch} />
             {/* <FileUpload /> */}
           </div>
-          <SearchResults results={results} />
+
+          {loading ? (
+            <div className="flex justify-center items-center h-64">
+              <div className="loader"></div>
+            </div>
+          ) : (
+            <SearchResults results={results} />
+          )}
         </div>
       </main>
       <footer className="p-4 text-center text-sm text-gray-500">

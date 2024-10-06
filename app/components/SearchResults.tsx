@@ -15,7 +15,6 @@ export default function SearchResults({ results }: SearchResultsProps) {
     }
   }, [results, activeTab]);
   if (!results || results.length == 0) {
-    console.log("called");
     return (
       <div className="text-gray-700 text-lg">
         No results found. Please try another search term.
@@ -64,10 +63,7 @@ export default function SearchResults({ results }: SearchResultsProps) {
         results
           .find((group) => group.fileName === activeTab)
           ?.results.map((result, index) => (
-            <div
-              key={index}
-              className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-200"
-            >
+            <div key={index} className="bg-white p-6 ">
               <p className="text-gray-800 leading-relaxed">
                 <span
                   dangerouslySetInnerHTML={{ __html: result.highlightedText }}
@@ -76,6 +72,7 @@ export default function SearchResults({ results }: SearchResultsProps) {
               <p className="text-sm text-gray-500 mt-2">
                 Word frequency in this document: {result.wordFrequency}
               </p>
+              <hr className="my-4 border-gray-300" />
             </div>
           ))}
     </div>
